@@ -7,6 +7,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <string>
+
+#include "CardManager.cpp"
 
 #define FULLSORTED   0
 #define FILTEREDSORT 1
