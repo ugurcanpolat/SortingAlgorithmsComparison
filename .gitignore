@@ -3,3 +3,6 @@
 *.xcodeproj/
 *.xcodeproj/*
 *.pbxproj
+*.out
+*.o
+project1
