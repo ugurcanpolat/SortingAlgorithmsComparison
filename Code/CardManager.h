@@ -17,6 +17,14 @@ typedef enum SortingType {
 } SORTINGTYPE;
 #endif /* type_enum */
 
+#ifndef compare_enum
+#define compare_enum
+typedef enum CompareType {
+    CLASS=0, COST, NAME, TYPE
+} COMPARETYPE;
+#endif /* compare_enum */
+
+
 class CardManager {
   private:
     Card* cards;

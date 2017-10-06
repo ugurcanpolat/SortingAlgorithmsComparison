@@ -40,3 +40,41 @@ string Card::getType() const {
 int Card::getCost() const {
     return cost;
 }
+
+int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
+    string self, other;
+    
+    switch(compareBy) {
+        case CLASS:
+            self = cardClass;
+            other = cmp.getClass();
+            break;
+        case COST:
+            if (cost < cmp.getCost()) {
+                return -1;
+            } else if (cost == cmp.getCost()) {
+                return 0;
+            } else {
+                return 1;
+            } break;
+        case NAME:
+            self = name;
+            other = cmp.getName();
+            break;
+        case TYPE:
+            self = type;
+            other = cmp.getType();
+            break;
+        default:
+            return -1;
+            break;
+    }
+    
+    if (self.compare(other) > 0) {
+        return -1;
+    } else if (self.compare(other) == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}

@@ -11,6 +11,13 @@
 
 using namespace std;
 
+#ifndef compare_enum
+#define compare_enum
+typedef enum CompareType {
+    CLASS=0, COST, NAME, TYPE
+} COMPARETYPE;
+#endif /* compare_enum */
+
 class Card {
   private:
     string name;
@@ -30,6 +37,7 @@ class Card {
     string getSet() const;
     string getType() const;
     int getCost() const;
+    int compare(const Card& cmp, COMPARETYPE compareBy) const;
 };
 
 #endif /* Card_h */

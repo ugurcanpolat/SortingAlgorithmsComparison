@@ -26,32 +26,49 @@ float CardManager::fullSort(SORTINGTYPE sorting_algorithm) {
     
     auto sortingStart = high_resolution_clock::now();
 
-    switch(sorting_algorithm) {
-        case INSERTION:
-            break;
-        case MERGE:
-            break;
-        default:
-            break;
+    if (sorting_algorithm == INSERTION) {
+        
+    } else if (sorting_algorithm == MERGE) {
+        
+    } else {
+        cout << "Wrong input for sorting algorithm selection.";
+        return -1;
     }
     
     auto sortingEnd = high_resolution_clock::now();
     float elapsed_time = duration_cast<microseconds>(sortingEnd - sortingStart).count();
     
-    return static_cast<float>(elapsed_time);
+    return elapsed_time;
 }
 
 float CardManager::filterSort(SORTINGTYPE sorting_algorithm) {
     using namespace chrono;
-    
     auto sortingStart = high_resolution_clock::now();
     
-    // Insert sorting code here...
+    if (sorting_algorithm == INSERTION) {
+        Card key;
+        int i, j;
+        for (j=1; j < size; j++) {
+            key = *(cards+j);
+            i = j - 1;
+            
+            while ((i >= 0) && (key.compare(*(cards+i), TYPE)) > 0) {
+                *(cards+(i+1)) = *(cards+i);
+                i--;
+            }
+            *(cards+(i+1)) = key;
+        }
+    } else if (sorting_algorithm == MERGE) {
+        
+    } else {
+        cout << "Wrong input for sorting algorithm selection.";
+        return -1;
+    }
     
     auto sortingEnd = high_resolution_clock::now();
     float elapsed_time = duration_cast<microseconds>(sortingEnd - sortingStart).count();
     
-    return static_cast<float>(elapsed_time);
+    return elapsed_time;
 }
 
 void CardManager::insertCard(const Card& new_card) {
@@ -110,3 +127,4 @@ void CardManager::writeOutputFile(const string file_name) const {
     
     output.close();
 }
+
