@@ -7,8 +7,7 @@
 #ifndef CardManager_h
 #define CardManager_h
 
-#include <string>
-#include "Card.h"
+#include "Card.cpp"
 
 class CardManager {
   private:
@@ -20,6 +19,7 @@ class CardManager {
     void fullSort();
     void filterSort();
     void insertCard(const Card& new_card);
+    int getSize() const;
 };
 
 #endif /* CardManager_h */

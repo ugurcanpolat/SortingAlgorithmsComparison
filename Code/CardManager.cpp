@@ -29,6 +29,7 @@ void CardManager::filterSort() {
 void CardManager::insertCard(const Card& new_card) {
     // If there is no card yet, create the new one. Then, return.
     if (size == 0) {
+        cards = new Card;
         *cards = new_card;
         size++;
         return;
@@ -60,4 +61,8 @@ void CardManager::insertCard(const Card& new_card) {
     // Get new card.
     *(cards+size) = new_card;
     size++;
+}
+
+int CardManager::getSize() const {
+    return size;
 }

@@ -71,6 +71,7 @@ int main(int argc, const char * argv[]) {
     }
     
     string line;
+    CardManager cardManager;
     
     while(!input.eof()) {
         getline(input, line); // Read the line.
@@ -85,6 +86,8 @@ int main(int argc, const char * argv[]) {
         
         getline(linestream, hero_name, '\t');
         linestream >> hero_class >> hero_rarity >> hero_set >> hero_type >> hero_cost;
+        Card new_card(hero_name, hero_class, hero_rarity, hero_set, hero_type, hero_cost);
+        cardManager.insertCard(new_card);
     }
     
     // Close all files.
