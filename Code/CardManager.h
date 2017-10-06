@@ -9,17 +9,27 @@
 
 #include "Card.cpp"
 
+#ifndef type_enum
+#define type_enum
+typedef enum SortingType {
+    NONE=0, FULLSORTED, FILTEREDSORT, INSERTION, MERGE,
+    INSERTIONFULL, INSERTIONFILTER, MERGEFULL, MERGEFILTER
+} SORTINGTYPE;
+#endif /* type_enum */
+
 class CardManager {
   private:
     Card* cards;
     int size;
+    void insertionSort();
+    void mergeSort();
   public:
     CardManager();
     ~CardManager();
-    void fullSort();
-    void filterSort();
+    float fullSort(SORTINGTYPE sorting_algorithm);
+    float filterSort(SORTINGTYPE sorting_algorithm);
     void insertCard(const Card& new_card);
-    int getSize() const;
+    void writeOutputFile(const string file_name) const;
 };
 
 #endif /* CardManager_h */

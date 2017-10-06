@@ -6,6 +6,9 @@
 
 #include "CardManager.h"
 
+#include <fstream>
+#include <chrono>
+
 CardManager::CardManager() {
     cards = nullptr;
     size = 0;
@@ -18,12 +21,37 @@ CardManager::~CardManager() {
         delete [] cards;
 }
 
-void CardManager::fullSort() {
+float CardManager::fullSort(SORTINGTYPE sorting_algorithm) {
+    using namespace chrono;
     
+    auto sortingStart = high_resolution_clock::now();
+
+    switch(sorting_algorithm) {
+        case INSERTION:
+            break;
+        case MERGE:
+            break;
+        default:
+            break;
+    }
+    
+    auto sortingEnd = high_resolution_clock::now();
+    float elapsed_time = duration_cast<microseconds>(sortingEnd - sortingStart).count();
+    
+    return static_cast<float>(elapsed_time);
 }
 
-void CardManager::filterSort() {
+float CardManager::filterSort(SORTINGTYPE sorting_algorithm) {
+    using namespace chrono;
     
+    auto sortingStart = high_resolution_clock::now();
+    
+    // Insert sorting code here...
+    
+    auto sortingEnd = high_resolution_clock::now();
+    float elapsed_time = duration_cast<microseconds>(sortingEnd - sortingStart).count();
+    
+    return static_cast<float>(elapsed_time);
 }
 
 void CardManager::insertCard(const Card& new_card) {
@@ -63,6 +91,22 @@ void CardManager::insertCard(const Card& new_card) {
     size++;
 }
 
-int CardManager::getSize() const {
-    return size;
+void CardManager::writeOutputFile(const string file_name) const {
+    ofstream output(file_name, ofstream::out);
+    
+    if (!output.is_open()) {
+        cout << endl << "Error opening output file." << endl << endl;
+        return;
+    }
+    
+    for (int counter = 0; counter < size; counter++) {
+        output << (*(cards+counter)).getName() << '\t';
+        output << (*(cards+counter)).getClass() << '\t';
+        output << (*(cards+counter)).getRarity() << '\t';
+        output << (*(cards+counter)).getSet() << '\t';
+        output << (*(cards+counter)).getType() << '\t';
+        output << (*(cards+counter)).getCost() << endl;
+    }
+    
+    output.close();
 }

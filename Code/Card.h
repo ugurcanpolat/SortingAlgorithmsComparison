@@ -21,10 +21,13 @@ class Card {
     int cost;
   public:
     Card() {};
-    Card(string name, string cardClass, string rarity,
-         string set, string type, int cost);
+    Card(const string name, const string cardClass,
+         const string rarity, const string set,
+         const string type, const int cost);
     string getName() const;
     string getClass() const;
+    string getRarity() const;
+    string getSet() const;
     string getType() const;
     int getCost() const;
 };

@@ -5,21 +5,20 @@
  */
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <sstream>
 #include <string>
 
 #include "CardManager.cpp"
 
-#define FULLSORTED   0
-#define FILTEREDSORT 1
-#define INSERTION    2
-#define MERGE        3
-
-#define INSERTIONFULL   4
-#define INSERTIONFILTER 5
-#define MERGEFULL       6
-#define MERGEFILTER     7
+#ifndef type_enum
+#define type_enum
+typedef enum SortingType {
+    NONE=0, FULLSORTED, FILTEREDSORT, INSERTION, MERGE,
+    INSERTIONFULL, INSERTIONFILTER, MERGEFULL, MERGEFILTER
+} SORTINGTYPE;
+#endif /* type_enum */
 
 using namespace std;
 
@@ -29,7 +28,7 @@ int main(int argc, const char * argv[]) {
         return 0;
     }
     
-    int sorting_procedure, sorting_algorithm, sorting_type;
+    SORTINGTYPE sorting_procedure, sorting_algorithm, sorting_type = NONE;
     
     if (strcmp(argv[1], "-full") == 0) {
         sorting_procedure = FULLSORTED;
@@ -57,19 +56,20 @@ int main(int argc, const char * argv[]) {
         case MERGE:
             sorting_type = (sorting_procedure == FULLSORTED) ? MERGEFULL : MERGEFILTER;
             break;
+        default:
+            sorting_type = NONE;
+            break;
     }
     
     string input_filename(argv[3]);
     string output_filename(argv[4]);
     
     ifstream input(input_filename, ifstream::in); // Read
-    ofstream output(output_filename, ofstream::out); // Write
     
-    if (!input.is_open() || !output.is_open()) {
-        cout << endl << "Error openning file(s)." << endl << endl;
+    if (!input.is_open()) {
+        cout << endl << "Error opening input file." << endl << endl;
         return 0;
     }
-    
     string line;
     CardManager cardManager;
     
@@ -90,8 +90,29 @@ int main(int argc, const char * argv[]) {
         cardManager.insertCard(new_card);
     }
     
-    // Close all files.
+    float sort_time = 0;
+    
+    switch (sorting_type) {
+        case INSERTIONFULL:
+            sort_time = cardManager.fullSort(INSERTION);
+            break;
+        case INSERTIONFILTER:
+            sort_time = cardManager.filterSort(INSERTION);
+            break;
+        case MERGEFULL:
+            sort_time = cardManager.fullSort(MERGE);
+            break;
+        case MERGEFILTER:
+            sort_time = cardManager.filterSort(MERGE);
+            break;
+        default:
+            break;
+    }
+    
+    cardManager.writeOutputFile(output_filename);
+
+    cout << endl << "Time elapsed: " << sort_time << " microseconds" << endl << endl;
+    
     input.close();
-    output.close();
     return 0;
 }

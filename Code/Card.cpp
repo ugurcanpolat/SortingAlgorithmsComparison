@@ -6,8 +6,9 @@
 
 #include "Card.h"
 
-Card::Card(string inputName, string inputCardClass, string inputRarity,
-           string inputSet, string inputType, int inputCost) {
+Card::Card(const string inputName, const string inputCardClass,
+           const string inputRarity, const string inputSet,
+           const string inputType, const int inputCost) {
     name = inputName;
     cardClass = inputCardClass;
     rarity = inputRarity;
@@ -22,6 +23,14 @@ string Card::getName() const {
 
 string Card::getClass() const {
     return cardClass;
+}
+
+string Card::getRarity() const {
+    return rarity;
+}
+
+string Card::getSet()const {
+    return set;
 }
 
 string Card::getType() const {
