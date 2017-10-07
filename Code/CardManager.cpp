@@ -94,9 +94,8 @@ void CardManager::merge(int p, int q, int r, COMPARETYPE compareBy) {
 
 float CardManager::fullSort(SORTINGTYPE sorting_algorithm) {
     using namespace chrono;
-    
     auto sortingStart = high_resolution_clock::now();
-
+    
     if (sorting_algorithm == INSERTION) {
         insertionSort(FULL);
     } else if (sorting_algorithm == MERGE) {

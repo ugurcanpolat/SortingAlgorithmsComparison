@@ -9,6 +9,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <cstring>
 
 #include "CardManager.cpp"
 
@@ -115,7 +116,8 @@ int main(int argc, const char * argv[]) {
     
     cardManager.writeOutputFile(output_filename);
 
-    cout << endl << "Time elapsed: " << sort_time << " microseconds" << endl << endl;
+    cout << endl << "Time elapsed: " << fixed << setprecision(0) << sort_time;
+    cout << " microseconds" << endl << endl;
     
     input.close();
     return 0;
