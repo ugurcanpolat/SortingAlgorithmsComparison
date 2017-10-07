@@ -21,6 +21,21 @@ CardManager::~CardManager() {
         delete [] cards;
 }
 
+void CardManager::insertionSort(COMPARETYPE compareBy) {
+    Card key;
+    int i, j;
+    for (j=1; j < size; j++) {
+        key = *(cards+j);
+        i = j - 1;
+        
+        while ((i >= 0) && (key.compare(*(cards+i), TYPE)) > 0) {
+            *(cards+(i+1)) = *(cards+i);
+            i--;
+        }
+        *(cards+(i+1)) = key;
+    }
+}
+
 void CardManager::mergeSort(int p, int r, COMPARETYPE compareBy) {
     if (p < r) {
         int q = (p + r) / 2;
@@ -83,9 +98,9 @@ float CardManager::fullSort(SORTINGTYPE sorting_algorithm) {
     auto sortingStart = high_resolution_clock::now();
 
     if (sorting_algorithm == INSERTION) {
-        
+        insertionSort(FULL);
     } else if (sorting_algorithm == MERGE) {
-        
+        mergeSort(0, size-1, FULL);
     } else {
         cout << "Wrong input for sorting algorithm selection.";
         return -1;
@@ -102,18 +117,7 @@ float CardManager::filterSort(SORTINGTYPE sorting_algorithm) {
     auto sortingStart = high_resolution_clock::now();
     
     if (sorting_algorithm == INSERTION) {
-        Card key;
-        int i, j;
-        for (j=1; j < size; j++) {
-            key = *(cards+j);
-            i = j - 1;
-            
-            while ((i >= 0) && (key.compare(*(cards+i), TYPE)) > 0) {
-                *(cards+(i+1)) = *(cards+i);
-                i--;
-            }
-            *(cards+(i+1)) = key;
-        }
+        insertionSort(TYPE);
     } else if (sorting_algorithm == MERGE) {
         mergeSort(0, size-1, TYPE);
     } else {

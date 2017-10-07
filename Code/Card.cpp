@@ -44,15 +44,17 @@ int Card::getCost() const {
 int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
     string self, other;
     
+    int otherCost = cmp.getCost();
+    
     switch(compareBy) {
         case CLASS:
             self = cardClass;
             other = cmp.getClass();
             break;
         case COST:
-            if (cost < cmp.getCost()) {
+            if (cost < otherCost) {
                 return -1;
-            } else if (cost == cmp.getCost()) {
+            } else if (cost == otherCost) {
                 return 0;
             } else {
                 return 1;
@@ -65,16 +67,28 @@ int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
             self = type;
             other = cmp.getType();
             break;
+        case FULL:
+            return fullCompare(*this, cmp);
         default:
             return -1;
             break;
     }
+
+    return -self.compare(other);
+}
+
+int Card::fullCompare(const Card& self, const Card& cmp) const {
+    int classCompare = self.compare(cmp, CLASS);
+    int costCompare = self.compare(cmp, COST);
+    int nameCompare = self.compare(cmp, NAME);
     
-    if (self.compare(other) > 0) {
-        return -1;
-    } else if (self.compare(other) == 0) {
-        return 0;
+    if (classCompare == 0) {
+        if (costCompare == 0) {
+            return nameCompare;
+        } else {
+            return costCompare;
+        }
     } else {
-        return 1;
+        return classCompare;
     }
 }

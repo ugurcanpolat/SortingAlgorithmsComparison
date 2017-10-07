@@ -21,7 +21,7 @@ class CardManager {
   private:
     Card* cards;
     int size;
-    void insertionSort();
+    void insertionSort(COMPARETYPE compareBy);
     void mergeSort(int p, int r, COMPARETYPE compareBy);
     void merge(int p, int q, int r, COMPARETYPE compareBy);
   public:
