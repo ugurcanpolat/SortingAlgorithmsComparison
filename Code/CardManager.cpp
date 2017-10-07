@@ -28,7 +28,7 @@ void CardManager::insertionSort(COMPARETYPE compareBy) {
         key = *(cards+j);
         i = j - 1;
         
-        while ((i >= 0) && (key.compare(*(cards+i), TYPE)) > 0) {
+        while ((i >= 0) && (key.compare(*(cards+i), compareBy)) < 0) {
             *(cards+(i+1)) = *(cards+i);
             i--;
         }
@@ -67,7 +67,7 @@ void CardManager::merge(int p, int q, int r, COMPARETYPE compareBy) {
         if ((i >= n1) || (j >= n2))
             break;
         
-        if ((*(left+i)).compare(*(right+j), compareBy) > 0) {
+        if ((*(left+i)).compare(*(right+j), compareBy) <= 0) {
             *(cards+k) = *(left+i);
             i++;
         } else {

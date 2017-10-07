@@ -73,8 +73,7 @@ int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
             return -1;
             break;
     }
-
-    return -self.compare(other);
+    return self.compare(other);
 }
 
 int Card::fullCompare(const Card& self, const Card& cmp) const {
