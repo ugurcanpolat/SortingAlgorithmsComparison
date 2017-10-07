@@ -21,6 +21,62 @@ CardManager::~CardManager() {
         delete [] cards;
 }
 
+void CardManager::mergeSort(int p, int r, COMPARETYPE compareBy) {
+    if (p < r) {
+        int q = (p + r) / 2;
+        mergeSort(p, q, compareBy);
+        mergeSort(q+1, r, compareBy);
+        merge(p, q, r, compareBy);
+    }
+}
+
+void CardManager::merge(int p, int q, int r, COMPARETYPE compareBy) {
+    int n1 = (q - p) + 1;
+    int n2 = (r - q);
+    
+    int i, j;
+    Card *left = new Card[n1];
+    Card *right = new Card[n2];
+    
+    for(i = 0; i < n1; i++) {
+        *(left+i) = *(cards+p+i);
+    }
+    
+    for(j = 0; j < n2; j++) {
+        *(right+j) = *(cards+q+j+1);
+    }
+
+    i = j = 0;
+    int k;
+    for(k=p; k < r; k++) {
+        if ((i >= n1) || (j >= n2))
+            break;
+        
+        if ((*(left+i)).compare(*(right+j), compareBy) > 0) {
+            *(cards+k) = *(left+i);
+            i++;
+        } else {
+            *(cards+k) = *(right+j);
+            j++;
+        }
+    }
+    
+    while(i < n1) {
+        *(cards+k) = *(left+i);
+        i++;
+        k++;
+    }
+    
+    while(j < n2) {
+        *(cards+k) = *(right+j);
+        j++;
+        k++;
+    }
+    
+    delete [] left;
+    delete [] right;
+}
+
 float CardManager::fullSort(SORTINGTYPE sorting_algorithm) {
     using namespace chrono;
     
@@ -59,7 +115,7 @@ float CardManager::filterSort(SORTINGTYPE sorting_algorithm) {
             *(cards+(i+1)) = key;
         }
     } else if (sorting_algorithm == MERGE) {
-        
+        mergeSort(0, size-1, TYPE);
     } else {
         cout << "Wrong input for sorting algorithm selection.";
         return -1;
