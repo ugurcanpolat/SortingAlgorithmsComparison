@@ -9,6 +9,8 @@
 
 #include "Card.cpp"
 
+#include <vector>
+
 #ifndef type_enum
 #define type_enum
 typedef enum SortingType {
@@ -19,14 +21,13 @@ typedef enum SortingType {
 
 class CardManager {
   private:
-    Card* cards;
+    vector<Card> cards;
     int size;
     void insertionSort(COMPARETYPE compareBy);
     void mergeSort(int p, int r, COMPARETYPE compareBy);
     void merge(int p, int q, int r, COMPARETYPE compareBy);
   public:
     CardManager();
-    ~CardManager();
     float fullSort(SORTINGTYPE sorting_algorithm);
     float filterSort(SORTINGTYPE sorting_algorithm);
     void insertCard(const Card& new_card);

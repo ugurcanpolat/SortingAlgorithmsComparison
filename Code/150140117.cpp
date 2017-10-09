@@ -95,6 +95,8 @@ int main(int argc, const char * argv[]) {
         cardManager.insertCard(new_card);
     }
     
+    input.close();
+    
     float sort_time = 0;
     
     switch (sorting_type) {
@@ -119,6 +121,5 @@ int main(int argc, const char * argv[]) {
     cout << endl << "Time elapsed: " << fixed << setprecision(0) << sort_time;
     cout << " microseconds" << endl << endl;
     
-    input.close();
     return 0;
 }
