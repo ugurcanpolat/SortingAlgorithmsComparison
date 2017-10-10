@@ -46,6 +46,7 @@ int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
     
     int otherCost = cmp.getCost();
     
+    // Get values for comparison type
     switch(compareBy) {
         case CLASS:
             self = cardClass;
@@ -73,21 +74,27 @@ int Card::compare(const Card& cmp, COMPARETYPE compareBy) const {
             return -1;
             break;
     }
+    
+    // Return string compare
     return self.compare(other);
 }
 
 int Card::fullCompare(const Card& self, const Card& cmp) const {
+    /* This function compares |this| card with the |cmp| by
+     full sort procedure */
+    
+    // Get the comparison results for Class, Cost and Name
     int classCompare = self.compare(cmp, CLASS);
     int costCompare = self.compare(cmp, COST);
     int nameCompare = self.compare(cmp, NAME);
     
     if (classCompare == 0) {
-        if (costCompare == 0) {
+        if (costCompare == 0) { // Same Class, Cost and Name
             return nameCompare;
-        } else {
+        } else { // Same Class, different Cost
             return costCompare;
         }
-    } else {
+    } else { // Different Class
         return classCompare;
     }
 }

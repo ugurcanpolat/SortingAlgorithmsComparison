@@ -9,7 +9,7 @@
 
 #include "Card.cpp"
 
-#include <vector>
+#include <vector> // vector
 
 #ifndef type_enum
 #define type_enum

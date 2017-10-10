@@ -7,7 +7,7 @@
 #ifndef Card_h
 #define Card_h
 
-#include <string>
+#include <string> // string
 
 using namespace std;
 
@@ -27,7 +27,7 @@ class Card {
     string type;
     int cost;
   public:
-    Card() {};
+    Card() {}; // Necessary for 'new []' allocations
     Card(const string name, const string cardClass,
          const string rarity, const string set,
          const string type, const int cost);
